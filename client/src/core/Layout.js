@@ -1,21 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, match, history }) => {
+	const isActive = (path) => {
+		console.log(match);
+		console.log(path);
+		console.log(match.path === path);
+		if (match.path === path) {
+			return { color: "#000" };
+		} else {
+			return { color: "#0d6efd" };
+		}
+	};
+
 	const nav = () => (
 		<ul className="nav nav-tabs bg-light">
 			<li className="nav-item">
-				<Link className="nav-link" to="/">
+				<Link className="nav-link" to="/" style={isActive("/")}>
 					Home
 				</Link>
 			</li>
 			<li className="nav-item">
-				<Link className="nav-link" to="/signup">
+				<Link className="nav-link" to="/signup" style={isActive("/signup")}>
 					Signup
 				</Link>
 			</li>
 			<li className="nav-item">
-				<Link className="nav-link" to="/signin">
+				<Link className="nav-link" to="/signin" style={isActive("/signin")}>
 					Signin
 				</Link>
 			</li>
@@ -30,4 +41,4 @@ const Layout = ({ children }) => {
 	);
 };
 
-export default Layout;
+export default withRouter(Layout);
