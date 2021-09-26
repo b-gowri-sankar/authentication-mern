@@ -1,10 +1,11 @@
 import "./App.css";
+import Layout from "./core/Layout";
 
 function App() {
 	return (
-		<div className="App">
+		<Layout>
 			<h1> This is react app </h1>
-		</div>
+		</Layout>
 	);
 }
 
