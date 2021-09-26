@@ -59,7 +59,7 @@ const Signup = () => {
 				/>
 			</div>
 			<div className="form-group">
-				<label className="text-muted">email</label>
+				<label className="text-muted">Email</label>
 				<input
 					name="email"
 					value={formData.email}
