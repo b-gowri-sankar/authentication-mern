@@ -16,10 +16,34 @@ const Signup = () => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
-
+	console.log(process.env.REACT_APP_API);
 	const onClickSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
+		setFormData({ ...formData, buttonText: "Submitting" });
+		axios({
+			method: "POST",
+			url: `${process.env.REACT_APP_API}/signup`,
+			data: {
+				name: formData.name,
+				email: formData.email,
+				password: formData.password,
+			},
+		})
+			.then((response) => {
+				console.log("Login success", response);
+				setFormData({
+					name: "",
+					email: "",
+					password: "",
+					buttonText: "Submit",
+				});
+				toast.success(response?.data?.message);
+			})
+			.catch((err) => {
+				console.error("Signup Error", err?.response?.data);
+				setFormData({ ...formData, buttonText: "Submit" });
+				toast.error(err.response.data.error);
+			});
 	};
 
 	const signupForm = () => (
