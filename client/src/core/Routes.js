@@ -6,6 +6,8 @@ import Signup from "../auth/Signup";
 import Activate from "../auth/Activate";
 import Private from "./Private";
 import PrivateRoute from "../auth/PrivateRoute";
+import Admin from "./Admin";
+import AdminRoute from "../auth/AdminRoute";
 
 const Routes = () => {
 	return (
@@ -16,6 +18,7 @@ const Routes = () => {
 				<Route path="/signin" exact component={SignIn} />
 				<Route path="/auth/activate/:token" exact component={Activate} />
 				<PrivateRoute path="/private" exact component={Private} />
+				<AdminRoute path="/admin" exact component={Admin} />
 			</Switch>
 		</BrowserRouter>
 	);
