@@ -73,3 +73,39 @@ exports.signup = (req, res) => {
 			});
 	});
 };
+
+exports.accountActivation = (req, res) => {
+	const { token } = req.body;
+	if (token) {
+		jwt.verify(
+			token,
+			process.env.JWT_ACCOUNT_ACTIVATION,
+			function (err, docoded) {
+				if (err) {
+					console.log("JWT verify in account activation error", err);
+					return res.status(401).json({
+						error: "Expire lik. Signup again",
+					});
+				}
+				const { name, email, password } = jwt.decode(token);
+				const user = new User({ name, email, password });
+				user.save((err, user) => {
+					if (err) {
+						console.log("save user in account activation error", err);
+						return res.status(401).json({
+							error: "Error saving user in database",
+							user: { name, email, password },
+						});
+					}
+					return res.json({
+						message: "Signup success. Please signin",
+					});
+				});
+			}
+		);
+	} else {
+		return res.json({
+			message: "Somethig Went wrong, try again",
+		});
+	}
+};
