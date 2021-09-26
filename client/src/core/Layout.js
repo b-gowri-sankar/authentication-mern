@@ -3,9 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 
 const Layout = ({ children, match, history }) => {
 	const isActive = (path) => {
-		console.log(match);
-		console.log(path);
-		console.log(match.path === path);
 		if (match.path === path) {
 			return { color: "#000" };
 		} else {
