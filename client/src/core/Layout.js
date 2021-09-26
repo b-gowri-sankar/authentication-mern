@@ -22,7 +22,15 @@ const Layout = ({ children, match, history }) => {
 				<li className="nav-item">
 					<span
 						className="nav-link"
-						style={{ cursor: "pointer", textTransform: "capitalize" }}
+						style={{
+							cursor: "pointer",
+							textTransform: "capitalize",
+							...isActive(isAuth().role === "admin" ? "/admin" : "/private"),
+						}}
+						onClick={() => {
+							isAuth().role === "subscriber" && history.push("/private");
+							isAuth().role === "admin" && history.push("/admin");
+						}}
 					>
 						{isAuth()?.name}
 					</span>
