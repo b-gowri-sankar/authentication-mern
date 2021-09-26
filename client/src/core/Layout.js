@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { isAuth, signOut } from "../auth/helpers";
 
 const Layout = ({ children, match, history }) => {
 	const isActive = (path) => {
@@ -17,16 +18,44 @@ const Layout = ({ children, match, history }) => {
 					Home
 				</Link>
 			</li>
-			<li className="nav-item">
-				<Link className="nav-link" to="/signup" style={isActive("/signup")}>
-					Signup
-				</Link>
-			</li>
-			<li className="nav-item">
-				<Link className="nav-link" to="/signin" style={isActive("/signin")}>
-					Signin
-				</Link>
-			</li>
+			{isAuth() ? (
+				<li className="nav-item">
+					<span
+						className="nav-link"
+						style={{ cursor: "pointer", textTransform: "capitalize" }}
+					>
+						{isAuth()?.name}
+					</span>
+				</li>
+			) : (
+				<React.Fragment>
+					<li className="nav-item">
+						<Link className="nav-link" to="/signup" style={isActive("/signup")}>
+							Signup
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link className="nav-link" to="/signin" style={isActive("/signin")}>
+							Signin
+						</Link>
+					</li>
+				</React.Fragment>
+			)}
+			{isAuth() && (
+				<li className="nav-item">
+					<span
+						className="nav-link"
+						style={{ cursor: "pointer", textTransform: "capitalize" }}
+						onClick={() => {
+							signOut(() => {
+								history.push("/");
+							});
+						}}
+					>
+						Signout
+					</span>
+				</li>
+			)}
 		</ul>
 	);
 

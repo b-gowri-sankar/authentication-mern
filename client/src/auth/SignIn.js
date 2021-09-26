@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import Layout from "../core/Layout";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { authenticate, isAuth } from "./helpers";
 import "react-toastify/dist/ReactToastify.css";
 const SignIn = () => {
 	const [formData, setFormData] = React.useState({
@@ -15,7 +16,7 @@ const SignIn = () => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
-	console.log(process.env.REACT_APP_API);
+
 	const onClickSubmit = (e) => {
 		e.preventDefault();
 		setFormData({ ...formData, buttonText: "Submitting" });
@@ -30,12 +31,14 @@ const SignIn = () => {
 			.then((response) => {
 				console.log("Login success", response);
 				//save the response which contains the user and token in localstorate/cookie
-				setFormData({
-					email: "",
-					password: "",
-					buttonText: "Submit",
+				authenticate(response, () => {
+					setFormData({
+						email: "",
+						password: "",
+						buttonText: "Submit",
+					});
+					toast.success(`${response.data.user.name}, Welcome back`);
 				});
-				toast.success(`${response.data.user.name}, Welcome back`);
 			})
 			.catch((err) => {
 				console.error("Signup Error", err?.response?.data);
@@ -76,8 +79,10 @@ const SignIn = () => {
 
 	return (
 		<Layout>
+			{JSON.stringify(isAuth())}
 			<div className="col-d-6 offset-md-3">
 				<ToastContainer />
+				{isAuth() ? <Redirect to="/" /> : ""}
 				<h1 className="p-5 text-center">Signup</h1>
 				{signinForm()}
 			</div>
