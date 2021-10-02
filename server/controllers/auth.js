@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
+const expressJwt = require("express-jwt");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // exports.signup = (req, res) => {
 // 	console.log("req body on signup", req.body);
@@ -136,3 +137,8 @@ exports.signin = (req, res) => {
 		});
 	});
 };
+
+exports.requireSignin = expressJwt({
+	secret: process.env.JWT_SECRET, // req.user._id
+	algorithms: ["HS256"],
+});
