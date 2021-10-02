@@ -35,6 +35,7 @@ if (process.env.NODE_ENV === "development") {
 }
 //middleware
 app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/user"));
 
 const port = process.env.PORT || 8000;
 
