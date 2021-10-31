@@ -84,11 +84,18 @@ const SignIn = ({ history }) => {
 	return (
 		<Layout>
 			{JSON.stringify(isAuth())}
-			<div className="col-d-6 offset-md-3">
+			<div className="col-md-6 offset-md-3">
 				<ToastContainer />
 				{isAuth() ? <Redirect to="/" /> : ""}
 				<h1 className="p-5 text-center">Signup</h1>
 				{signinForm()}
+				<br />
+				<Link
+					to="/auth/password/forgot"
+					className="btn btn-sm btn-outline-danger"
+				>
+					Forgot Password
+				</Link>
 			</div>
 		</Layout>
 	);
