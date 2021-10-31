@@ -12,7 +12,7 @@ import {
 } from "../auth/helpers";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.css";
-const Private = ({ history }) => {
+const Private = ({ history, name }) => {
 	const [formData, setFormData] = React.useState({
 		role: "",
 		name: "",
