@@ -18,6 +18,19 @@ const SignIn = ({ history }) => {
 		setFormData({ ...formData, [name]: value });
 	};
 
+	const informParent = (response) => {
+		authenticate(response, () => {
+			setFormData({
+				email: "",
+				password: "",
+				buttonText: "Submit",
+			});
+			isAuth() && isAuth().role === "subscriber" && history.push("/private");
+			isAuth() && isAuth().role === "Admin" && history.push("/admin");
+			toast.success(`${response.data.user.name}, Welcome back`);
+		});
+	};
+
 	const onClickSubmit = (e) => {
 		e.preventDefault();
 		setFormData({ ...formData, buttonText: "Submitting" });
@@ -88,7 +101,7 @@ const SignIn = ({ history }) => {
 				<ToastContainer />
 				{isAuth() ? <Redirect to="/" /> : ""}
 				<h1 className="p-5 text-center">Signup</h1>
-				<Google />
+				<Google informParent={informParent} />
 				{signinForm()}
 				<br />
 				<Link

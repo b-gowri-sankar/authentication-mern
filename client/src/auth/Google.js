@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import GoogleLogin from "react-google-login";
 
-const Google = () => {
+const Google = ({ informParent }) => {
 	const responseGoogle = (response) => {
 		axios({
 			method: "POST",
@@ -11,6 +11,7 @@ const Google = () => {
 		})
 			.then((response) => {
 				console.log("Google Signin Success", response);
+				informParent(response);
 			})
 			.catch((err) => console.error(err.response));
 	};
