@@ -6,6 +6,7 @@ const {
 	forgotPassword,
 	resetPassword,
 	googleLogin,
+	facebookLogin,
 } = require("../controllers/auth");
 const router = express.Router();
 
@@ -40,5 +41,6 @@ router.put(
 //google and facebook
 
 router.post("/google-login", googleLogin);
+router.post("/facebook-login", facebookLogin);
 
 module.exports = router;
