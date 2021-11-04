@@ -5,6 +5,7 @@ const {
 	signin,
 	forgotPassword,
 	resetPassword,
+	googleLogin,
 } = require("../controllers/auth");
 const router = express.Router();
 
@@ -35,5 +36,9 @@ router.put(
 	runValidation,
 	resetPassword
 );
+
+//google and facebook
+
+router.post("/google-login", googleLogin);
 
 module.exports = router;
