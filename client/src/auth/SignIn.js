@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { authenticate, isAuth } from "./helpers";
 import "react-toastify/dist/ReactToastify.css";
+import Google from "./Google";
 const SignIn = ({ history }) => {
 	const [formData, setFormData] = React.useState({
 		email: "",
@@ -83,11 +84,11 @@ const SignIn = ({ history }) => {
 
 	return (
 		<Layout>
-			{JSON.stringify(isAuth())}
 			<div className="col-md-6 offset-md-3">
 				<ToastContainer />
 				{isAuth() ? <Redirect to="/" /> : ""}
 				<h1 className="p-5 text-center">Signup</h1>
+				<Google />
 				{signinForm()}
 				<br />
 				<Link
