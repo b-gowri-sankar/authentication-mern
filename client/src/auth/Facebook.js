@@ -5,16 +5,16 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 const Facebook = ({ informParent }) => {
 	const responseFacebook = (response) => {
 		console.log(response);
-		// axios({
-		// 	method: "POST",
-		// 	url: `${process.env.REACT_APP_API}/google-login`,
-		// 	data: { idToken: response.tokenId },
-		// })
-		// 	.then((response) => {
-		// 		console.log("Google Signin Success", response);
-		// 		informParent(response);
-		// 	})
-		// 	.catch((err) => console.error(err.response));
+		axios({
+			method: "POST",
+			url: `${process.env.REACT_APP_API}/facebook-login`,
+			data: { userID: response.userID, accessToken: response.accessToken },
+		})
+			.then((response) => {
+				console.log("Facebook Signin Success", response);
+				informParent(response);
+			})
+			.catch((err) => console.error(err.response));
 	};
 
 	return (
